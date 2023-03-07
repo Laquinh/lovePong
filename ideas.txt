@@ -1,0 +1,6 @@
+---strength: increase ball speed in one direction
+---invisibility: hide ball for half the route from a pad to the other
+---randomise: throw ball in more random direction
+---cloner: render two balls in the beginning, make one of them disappear after some point before reaching
+---help: have two pads moving symetrically
+---barrier: have obstacles appear for one player
