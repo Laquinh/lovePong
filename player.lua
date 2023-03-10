@@ -25,6 +25,8 @@ function player.load(number)
         player.image = love.graphics.newImage('assets/sprites/pad.png')
         assert(player.image:getWidth()*GeneralVariables.pixelScale == player.width and player.image:getHeight()*GeneralVariables.pixelScale == player.height, "Player image dimensions don't match player dimensions")
     end
+
+    player.color = {1, 1, 1, 1}
 end
 
 function player.update(dt)
@@ -45,6 +47,7 @@ if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
     end
 elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function player.draw()
+        love.graphics.setColor(player.color)
         if player.number == 2 then
             love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
         else

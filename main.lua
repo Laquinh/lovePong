@@ -1,5 +1,5 @@
 local SoundManager = require 'SoundManager'
-
+local scorer = require 'scorer'
 local player1, player2, ball
 
 function love.load()
@@ -14,6 +14,8 @@ function love.load()
     player1.load(1)
     player2.load(2)
     ball.load(player1)
+
+    scorer.load()
 end
 
 function love.update(dt)
@@ -35,10 +37,12 @@ function love.update(dt)
             print("Player 1 wins!")
             ball.load(player2)
             SoundManager.missBlipSound:play()
+            scorer.update(1)
         elseif winner == 2 then
             print("Player 2 wins!")
             ball.load(player1)
             SoundManager.missBlipSound:play()
+            scorer.update(2)
         end
     end
 end
@@ -47,6 +51,8 @@ function love.draw()
     player1.draw()
     player2.draw()
     ball.draw()
+
+    scorer.draw()
 end
 
 function love.keypressed(key)

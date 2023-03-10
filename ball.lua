@@ -30,6 +30,8 @@ function ball.load(player)
         ball.image = love.graphics.newImage('assets/sprites/ball.png')
         assert(ball.image:getWidth()*GeneralVariables.pixelScale == ball.width and ball.image:getHeight()*GeneralVariables.pixelScale == ball.height, "Ball image dimensions (" .. ball.image:getWidth() .. ", " .. ball.image:getHeight() .. ") don't match ball dimensions (" .. ball.width .. ", " .. ball.height .. ")")
     end
+
+    ball.color = {1, 1, 1, 1}
 end
 
 function ball.update(dt)
@@ -57,6 +59,7 @@ if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
     end
 elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function ball.draw()
+        love.graphics.setColor(ball.color)
         love.graphics.circle('fill', ball.x + ball.radius, ball.y + ball.radius, ball.radius)
     end
 end
