@@ -36,12 +36,12 @@ function love.update(dt)
         if winner == 1 then
             print("Player 1 wins!")
             ball.load(player2)
-            SoundManager.missBlipSound:play()
+            SoundManager.missBlip:play()
             scorer.update(1)
         elseif winner == 2 then
             print("Player 2 wins!")
             ball.load(player1)
-            SoundManager.missBlipSound:play()
+            SoundManager.missBlip:play()
             scorer.update(2)
         end
     end
@@ -61,6 +61,6 @@ function love.keypressed(key)
         local theta = math.random()*math.pi/6 - math.pi/12
         ball.direction.x = -math.cos(theta)
         ball.direction.y = math.sin(theta)
-        SoundManager.padBlipSound:play()
+        SoundManager.padBlip:play()
     end
 end

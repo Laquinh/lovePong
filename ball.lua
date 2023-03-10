@@ -42,11 +42,11 @@ function ball.update(dt)
         if ball.y < 0 then
             ball.y = 0
             ball.direction.y = -ball.direction.y
-            SoundManager.wallBlipSound:play()
+            SoundManager.wallBlip:play()
         elseif ball.y > GeneralVariables.mapHeight - ball.height then
             ball.y = GeneralVariables.mapHeight - ball.height
             ball.direction.y = -ball.direction.y
-            SoundManager.wallBlipSound:play()
+            SoundManager.wallBlip:play()
         end
     else
         ball.y = ball.player.y + (ball.player.height - ball.height) / 2
@@ -103,15 +103,15 @@ function ball.collide(player, directionSign)
     if ball.y < player.y then
         theta = -(math.random()*math.pi/4 + math.pi/12)
         multiplier = 1.3
-        SoundManager.hitBlipSound:play()
+        SoundManager.hitBlip:play()
     elseif ball.y + ball.height > player.y + player.height then
         theta = (math.random()*math.pi/4 + math.pi/12)
         multiplier = 1.3
-        SoundManager.hitBlipSound:play()
+        SoundManager.hitBlip:play()
     else
         theta = (math.random()*math.pi/4 - math.pi/8)
         multiplier = 1
-        SoundManager.padBlipSound:play()
+        SoundManager.padBlip:play()
     end
 
     ball.direction.x = math.cos(theta) * directionSign * multiplier
