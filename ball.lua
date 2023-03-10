@@ -69,7 +69,7 @@ function ball.isColliding(player)
         ball.y + ball.height > player.y and ball.y < player.y + player.height
 end
 
-function ball.checkWinner()
+function ball.checkScorer()
     if ball.x < 0 then
         return 1
     elseif ball.x > GeneralVariables.mapWidth then

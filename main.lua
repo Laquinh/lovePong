@@ -31,16 +31,22 @@ function love.update(dt)
             ball.collide(player2, 1)
         end
 
-        local winner = ball.checkWinner()
+        local scorer = ball.checkScorer()
 
-        if winner == 1 then
+        if scorer == 1 then
             ball.load(player2)
             SoundManager.missBlip:play()
             scoreboard.update(1)
-        elseif winner == 2 then
+        elseif scorer == 2 then
             ball.load(player1)
             SoundManager.missBlip:play()
             scoreboard.update(2)
+        end
+
+        if scoreboard.scores[1] >= GeneralVariables.winningScore then
+            win(player1)
+        elseif scoreboard.scores[2] >= GeneralVariables.winningScore then
+            win(player2)
         end
     end
 end
@@ -61,4 +67,10 @@ function love.keypressed(key)
         ball.direction.y = math.sin(theta)
         SoundManager.padBlip:play()
     end
+end
+
+function win(player)
+    print('Player ' .. player.number .. ' wins!')
+    love.timer.sleep(1)
+    love.event.quit()
 end
