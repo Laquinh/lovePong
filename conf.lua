@@ -1,5 +1,5 @@
 function love.conf(t)
-    GeneralVariables = require "general"
+    GeneralVariables = require 'general'
 
     t.window.width = GeneralVariables.mapWidth
     t.window.height = GeneralVariables.mapHeight

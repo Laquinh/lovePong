@@ -9,7 +9,7 @@ function love.load()
 
     math.randomseed(os.time())
 
-    love.graphics.setDefaultFilter("nearest", "nearest")
+    love.graphics.setDefaultFilter('nearest', 'nearest')
 
     player1.load(1)
     player2.load(2)

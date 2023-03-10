@@ -1,5 +1,5 @@
-local GeneralVariables = require "general"
-local enums = require "enums"
+local GeneralVariables = require 'general'
+local enums = require 'enums'
 
 local player = {}
 
@@ -22,7 +22,7 @@ function player.load(number)
     end
     
     if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
-        player.image = love.graphics.newImage("assets/sprites/pad.png")
+        player.image = love.graphics.newImage('assets/sprites/pad.png')
         assert(player.image:getWidth()*GeneralVariables.pixelScale == player.width and player.image:getHeight()*GeneralVariables.pixelScale == player.height, "Player image dimensions don't match player dimensions")
     end
 end
@@ -46,9 +46,9 @@ if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
 elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function player.draw()
         if player.number == 2 then
-            love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+            love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
         else
-            love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+            love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
         end
     end
 end

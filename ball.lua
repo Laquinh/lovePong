@@ -1,6 +1,6 @@
-local GeneralVariables = require "general"
-local enums = require "enums"
-local SoundManager = require "SoundManager"
+local GeneralVariables = require 'general'
+local enums = require 'enums'
+local SoundManager = require 'SoundManager'
 
 local ball = {}
 
@@ -27,7 +27,7 @@ function ball.load(player)
     ball.collisionCounter = 0
 
     if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
-        ball.image = love.graphics.newImage("assets/sprites/ball.png")
+        ball.image = love.graphics.newImage('assets/sprites/ball.png')
         assert(ball.image:getWidth()*GeneralVariables.pixelScale == ball.width and ball.image:getHeight()*GeneralVariables.pixelScale == ball.height, "Ball image dimensions (" .. ball.image:getWidth() .. ", " .. ball.image:getHeight() .. ") don't match ball dimensions (" .. ball.width .. ", " .. ball.height .. ")")
     end
 end
@@ -57,7 +57,7 @@ if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
     end
 elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function ball.draw()
-        love.graphics.circle("fill", ball.x + ball.radius, ball.y + ball.radius, ball.radius)
+        love.graphics.circle('fill', ball.x + ball.radius, ball.y + ball.radius, ball.radius)
     end
 end
 
