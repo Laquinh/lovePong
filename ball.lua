@@ -4,8 +4,8 @@ local SoundManager = require 'SoundManager'
 
 local ball = {}
 
-function ball.load(player)
-    ball.player = player
+function ball.load(launcher)
+    ball.launcher = launcher
 
     ball.speed = 500
     ball.direction = {x = 0, y = 0}
@@ -14,13 +14,13 @@ function ball.load(player)
     ball.height = 24
     ball.radius = 12
 
-    if player.number == 1 then
-        ball.x = player.x - ball.width
+    if launcher.position == enums.Position.RIGHT then
+        ball.x = launcher.x - ball.width
     else
-        ball.x = player.x + player.width
+        ball.x = launcher.x + launcher.width
     end
 
-    ball.y = player.y + (player.height - ball.height) / 2
+    ball.y = launcher.y + (launcher.height - ball.height) / 2
 
     ball.isMoving = false
 
@@ -49,7 +49,7 @@ function ball.update(dt)
             SoundManager.wallBlip:play()
         end
     else
-        ball.y = ball.player.y + (ball.player.height - ball.height) / 2
+        ball.y = ball.launcher.y + (ball.launcher.height - ball.height) / 2
     end
 end
 
@@ -64,16 +64,16 @@ elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     end
 end
 
-function ball.isColliding(player)
-    return ball.x + ball.width > player.x and ball.x < player.x + player.width and
-        ball.y + ball.height > player.y and ball.y < player.y + player.height
+function ball.isColliding(launcher)
+    return ball.x + ball.width > launcher.x and ball.x < launcher.x + launcher.width and
+        ball.y + ball.height > launcher.y and ball.y < launcher.y + launcher.height
 end
 
 function ball.checkScorer()
     if ball.x < 0 then
-        return 1
+        return enums.Position.RIGHT
     elseif ball.x > GeneralVariables.mapWidth then
-        return 2
+        return enums.Position.LEFT
     else
         return 0
     end
@@ -89,7 +89,13 @@ function sign(x)
     end
 end
 
-function ball.collide(player, directionSign)
+function ball.collide(player)
+    if player.position == enums.Position.LEFT then
+        directionSign = 1
+    else
+        directionSign = -1
+    end
+
     ball.collisionCounter = ball.collisionCounter + 1
     if ball.collisionCounter % 10 == 0 and ball.speed < 800 then
         ball.speed = ball.speed + 50
@@ -116,6 +122,20 @@ function ball.collide(player, directionSign)
 
     ball.direction.x = math.cos(theta) * directionSign * multiplier
     ball.direction.y = math.sin(theta)
+end
+
+function ball.launch()
+    if ball.launcher.position == enums.Position.LEFT then
+        directionSign = 1
+    else
+        directionSign = -1
+    end
+
+    ball.isMoving = true
+    local theta = math.random()*math.pi/6 - math.pi/12
+    ball.direction.x = math.cos(theta) * directionSign
+    ball.direction.y = math.sin(theta)
+    SoundManager.padBlip:play()
 end
 
 return ball

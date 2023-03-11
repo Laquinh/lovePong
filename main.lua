@@ -1,5 +1,7 @@
 local SoundManager = require 'SoundManager'
 local scoreboard = require 'scoreboard'
+local enums = require 'enums'
+
 local player1, player2, ball
 
 function love.load()
@@ -11,8 +13,8 @@ function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
-    player1.load(1)
-    player2.load(2)
+    player1.load(enums.PlayerType.ONE)
+    player2.load(enums.PlayerType.TWO)
     ball.load(player1)
 
     scoreboard.load()
@@ -26,51 +28,47 @@ function love.update(dt)
 
     if ball.isMoving then
         if ball.isColliding(player1) then
-            ball.collide(player1, -1)
+            ball.collide(player1)
         elseif ball.isColliding(player2) then
-            ball.collide(player2, 1)
+            ball.collide(player2)
         end
 
         local scorer = ball.checkScorer()
 
-        if scorer == 1 then
+        if scorer == player1.position then
             ball.load(player2)
             SoundManager.missBlip:play()
-            scoreboard.update(1)
-        elseif scorer == 2 then
+            scoreboard.update(player1.position)
+        elseif scorer == player2.position then
             ball.load(player1)
             SoundManager.missBlip:play()
-            scoreboard.update(2)
+            scoreboard.update(player2.position)
         end
 
-        if scoreboard.scores[1] >= GeneralVariables.winningScore then
+        if scoreboard.scores[player1.position] >= GeneralVariables.winningScore then
             win(player1)
-        elseif scoreboard.scores[2] >= GeneralVariables.winningScore then
+        elseif scoreboard.scores[player2.position] >= GeneralVariables.winningScore then
             win(player2)
         end
     end
 end
 
 function love.draw()
+    scoreboard.draw()
+
     player1.draw()
     player2.draw()
     ball.draw()
-
-    scoreboard.draw()
 end
 
 function love.keypressed(key)
     if key == 'space' and not ball.isMoving then
-        ball.isMoving = true
-        local theta = math.random()*math.pi/6 - math.pi/12
-        ball.direction.x = -math.cos(theta)
-        ball.direction.y = math.sin(theta)
-        SoundManager.padBlip:play()
+        ball.launch()
     end
 end
 
 function win(player)
-    print('Player ' .. player.number .. ' wins!')
+    print('Player ' .. player.type .. ' wins!')
     love.timer.sleep(1)
     love.event.quit()
 end

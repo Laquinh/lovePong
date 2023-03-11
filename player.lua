@@ -3,19 +3,27 @@ local enums = require 'enums'
 
 local player = {}
 
-function player.load(number)
-    player.number = number
+function player.load(playerType)
+    player.type = playerType
     player.speed = 300
     player.width = 32
     player.height = 3*32
-    if player.number == 1 then
-        player.x = GeneralVariables.mapWidth - player.width
+
+    if player.type == enums.PlayerType.ONE then
+        player.position = enums.Position.RIGHT
     else
-        player.x = 0
+        player.position = enums.Position.LEFT
     end
+
+    if player.position == enums.Position.LEFT then
+        player.x = 0
+    else
+        player.x = GeneralVariables.mapWidth - player.width
+    end
+    
     player.y = (GeneralVariables.mapHeight - player.height) / 2
 
-    if player.number == 1 then
+    if player.position == enums.Position.RIGHT then
         player.controls = {up = 'up', down = 'down'}
     else
         player.controls = {up = 'w', down = 's'}
@@ -39,7 +47,7 @@ end
 
 if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
     function player.draw()
-        if player.number == 2 then
+        if player.position == enums.Position.LEFT then
             love.graphics.draw(player.image, player.x + player.width, player.y + player.height, nil, -GeneralVariables.pixelScale)
         else
             love.graphics.draw(player.image, player.x, player.y, nil, GeneralVariables.pixelScale)
