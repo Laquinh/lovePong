@@ -8,7 +8,7 @@ function pausedState.init()
     font = love.graphics.getFont()
     text = "Paused"
     textWidth = font:getWidth(text)
-    textHeight = font:getHeight(text)
+    textHeight = font:getHeight(text)/2
 
     pausedState.isInitialized = true
 end
@@ -33,7 +33,7 @@ function pausedState.draw()
         love.graphics.draw(pausedState.screenshot)
     end
     love.graphics.setColor{1, 1, 1, 1}
-    love.graphics.print(text, GeneralVariables.mapWidth/2 - textWidth/2, GeneralVariables.mapHeight/2 - textHeight/2)
+    love.graphics.print(text, GeneralVariables.mapWidth/2 - textWidth/2, GeneralVariables.mapHeight/2 - textHeight)
 end
 
 function pausedState.keypressed(key)
