@@ -48,11 +48,7 @@ if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
 elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function player.draw()
         love.graphics.setColor(player.color)
-        if player.number == 2 then
-            love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
-        else
-            love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
-        end
+        love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
     end
 end
 
