@@ -6,8 +6,9 @@ local scoreboard = require 'scoreboard'
 local playState = {}
 
 local player1, player2, ball
+local game = require 'game'
 
-function playState.load()
+function playState.init()
     player1 = dofile 'player.lua'
     player2 = dofile 'player.lua'
     ball = dofile 'ball.lua'
@@ -17,6 +18,19 @@ function playState.load()
     player2.load(enums.PlayerType.AI, ball)
 
     scoreboard.load()
+
+    playState.isInitialized = true
+end
+
+function playState.resume()
+end
+
+function playState.load()
+    if playState.isInitialized then
+        playState.resume()
+    else
+        playState.init()
+    end
 end
 
 function playState.update(dt)
@@ -62,6 +76,15 @@ end
 function playState.keypressed(key)
     if key == 'space' and not ball.isMoving then
         ball.launch()
+    end
+
+    if key == 'escape' then
+        love.graphics.captureScreenshot(
+            function(screenshot)
+                game.states.paused.screenshot = love.graphics.newImage(screenshot)
+                game.switchState(game.states.paused)
+            end
+        )
     end
 end
 
