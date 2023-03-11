@@ -10,6 +10,8 @@ GeneralVariables.pixelScale = 2
 
 GeneralVariables.winningScore = 7
 
+GeneralVariables.defaultPosition = {[enums.PlayerType.ONE] = enums.Position.RIGHT}
+
 GeneralVariables.drawMode = enums.DrawMode.GEOMETRY
 assert(GeneralVariables.drawMode ~= nil, "GeneralVariables.drawMode is nil")
 

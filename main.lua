@@ -14,8 +14,8 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     player1.load(enums.PlayerType.ONE)
-    player2.load(enums.PlayerType.TWO)
     ball.load(player1)
+    player2.load(enums.PlayerType.AI, ball)
 
     scoreboard.load()
 end

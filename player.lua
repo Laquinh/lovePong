@@ -3,16 +3,34 @@ local enums = require 'enums'
 
 local player = {}
 
-function player.load(playerType)
+local ball
+
+local function oppositePosition(position)
+    if position == enums.Position.LEFT then
+        return enums.Position.RIGHT
+    else
+        return enums.Position.LEFT
+    end
+end
+
+function player.load(playerType, targetBall)
     player.type = playerType
     player.speed = 300
     player.width = 32
     player.height = 3*32
 
     if player.type == enums.PlayerType.ONE then
-        player.position = enums.Position.RIGHT
+        player.position = GeneralVariables.defaultPosition[enums.PlayerType.ONE]
     else
-        player.position = enums.Position.LEFT
+        player.position = oppositePosition(GeneralVariables.defaultPosition[enums.PlayerType.ONE])
+    end
+
+    if player.type == enums.PlayerType.AI then
+        assert(targetBall, "AI player needs a target ball")
+        player.update = player.updateAI
+        ball = targetBall
+    else
+        player.update = player.updateHuman
     end
 
     if player.position == enums.Position.LEFT then
@@ -37,14 +55,6 @@ function player.load(playerType)
     player.color = {1, 1, 1, 1}
 end
 
-function player.update(dt)
-    if love.keyboard.isDown(player.controls.up) and player.y > 0 then
-        player.y = player.y - dt*player.speed
-    elseif love.keyboard.isDown(player.controls.down) and player.y < GeneralVariables.mapHeight - player.height then
-        player.y = player.y + dt*player.speed
-    end
-end
-
 if GeneralVariables.drawMode == enums.DrawMode.IMAGES then
     function player.draw()
         if player.position == enums.Position.LEFT then
@@ -57,6 +67,22 @@ elseif GeneralVariables.drawMode == enums.DrawMode.GEOMETRY then
     function player.draw()
         love.graphics.setColor(player.color)
         love.graphics.rectangle('fill', player.x, player.y, player.width, player.height)
+    end
+end
+
+function player.updateHuman(dt)
+    if love.keyboard.isDown(player.controls.up) and player.y > 0 then
+        player.y = player.y - dt*player.speed
+    elseif love.keyboard.isDown(player.controls.down) and player.y < GeneralVariables.mapHeight - player.height then
+        player.y = player.y + dt*player.speed
+    end
+end
+
+function player.updateAI(dt)
+    if ball.y < player.y then
+        player.y = player.y - dt*player.speed
+    elseif ball.y > player.y + player.height then
+        player.y = player.y + dt*player.speed
     end
 end
 
