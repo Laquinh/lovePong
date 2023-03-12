@@ -18,9 +18,6 @@ function button.load(text)
 end
 
 function button.update(dt)
-    if love.mouse.isDown(1) then
-        button.mousepressed(love.mouse.getX(), love.mouse.getY(), 1)
-    end
 end
 
 function button.draw()
