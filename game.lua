@@ -24,6 +24,10 @@ function game.keypressed(key)
     game.currentState.keypressed(key)
 end
 
+function game.mousepressed(x, y, button)
+    game.currentState.mousepressed(x, y, button)
+end
+
 function game.switchState(state)
     game.currentState = state
     game.currentState.load()
@@ -35,6 +39,7 @@ function game.assertFunctions()
         assert(state.update ~= nil, stateName .. ".update is nil")
         assert(state.draw ~= nil, stateName .. ".draw is nil")
         assert(state.keypressed ~= nil, stateName .. ".keypressed is nil")
+        assert(state.mousepressed ~= nil, stateName .. ".mousepressed is nil")
     end
 end
 

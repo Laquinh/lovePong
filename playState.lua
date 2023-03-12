@@ -88,6 +88,9 @@ function playState.keypressed(key)
     end
 end
 
+function playState.mousepressed(x, y, button)
+end
+
 function playState.win(player)
     print('Player ' .. player.type .. ' wins!')
     love.timer.sleep(1)

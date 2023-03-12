@@ -12,6 +12,8 @@ GeneralVariables.winningScore = 7
 
 GeneralVariables.defaultPosition = {[enums.PlayerType.ONE] = enums.Position.RIGHT}
 
+GeneralVariables.fontPath = 'assets/fonts/Pixeboy-z8XGD.ttf'
+
 GeneralVariables.drawMode = enums.DrawMode.GEOMETRY
 assert(GeneralVariables.drawMode ~= nil, "GeneralVariables.drawMode is nil")
 

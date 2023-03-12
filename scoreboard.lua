@@ -16,7 +16,7 @@ function scoreboard.load()
     scoreboard.offset = 50
 
     scoreboard.color = {1, 1, 1, 0.75}
-    scoreboard.font = love.graphics.newFont("assets/fonts/Pixeboy-z8XGD.ttf", 136)
+    scoreboard.font = love.graphics.newFont(GeneralVariables.fontPath, 136)
     love.graphics.setFont(scoreboard.font)
 
     scoreboard.updateWidth()
@@ -32,6 +32,7 @@ end
 
 function scoreboard.draw()
     love.graphics.setColor(scoreboard.color)
+    love.graphics.setFont(scoreboard.font)
 
     love.graphics.print(scoreboard.scores[LEFT], GeneralVariables.mapWidth/2 - scoreboard.offset - scoreboard.scoreWidth[LEFT], 10)
     love.graphics.print(scoreboard.scores[RIGHT], GeneralVariables.mapWidth/2 + scoreboard.offset, 10)
