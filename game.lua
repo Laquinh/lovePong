@@ -4,7 +4,8 @@ function game.load()
     game.states =
     {
         play = require 'playState',
-        paused = require 'pausedState'
+        paused = require 'pausedState',
+        win = require 'winState'
     }
 
     game.assertFunctions()

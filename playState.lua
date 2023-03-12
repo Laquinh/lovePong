@@ -76,9 +76,7 @@ end
 function playState.keypressed(key)
     if key == 'space' and not ball.isMoving then
         ball.launch()
-    end
-
-    if key == 'escape' then
+    elseif key == 'return' or key == 'escape' then
         love.graphics.captureScreenshot(
             function(screenshot)
                 game.states.paused.screenshot = love.graphics.newImage(screenshot)
@@ -92,9 +90,12 @@ function playState.mousepressed(x, y, button)
 end
 
 function playState.win(player)
-    print('Player ' .. player.type .. ' wins!')
-    love.timer.sleep(1)
-    love.event.quit()
+    game.states.win.winner = player
+    game.switchState(game.states.win)
+end
+
+function playState.reset()
+    playState.isInitialized = false
 end
 
 return playState

@@ -14,8 +14,8 @@ enums.Position =
 
 enums.PlayerType =
 {
-    ONE = 'ONE',
-    TWO = 'TWO',
+    ONE = 'PLAYER ONE',
+    TWO = 'PLAYER TWO',
     AI = 'AI'
 }
 

@@ -62,8 +62,10 @@ function pausedState.draw()
 end
 
 function pausedState.keypressed(key)
-    if key == 'escape' then
+    if key == 'return' then
         buttons.resume.action()
+    elseif key == 'escape' then
+        buttons.quit.action()
     end
 end
 
